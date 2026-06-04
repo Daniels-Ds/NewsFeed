@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:iconic/iconic.dart';
-import 'package:otto_news/theme/constant/colors.dart';
+import 'package:otto_news/core/theme/constant/colors.dart';
 
-import 'screens/deferred/deferred_screen.dart';
-import 'screens/home/home_screen.dart';
-import 'screens/profile/profile_screen.dart';
-import 'screens/recommendations/reccomendations_screen.dart';
-import 'screens/search/search_screen.dart';
+import 'deferred/deferred_screen.dart';
+import 'home/home_screen.dart';
+import 'profile/profile_screen.dart';
+import 'recommendations/reccomendations_screen.dart';
+import 'search/search_screen.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({super.key});

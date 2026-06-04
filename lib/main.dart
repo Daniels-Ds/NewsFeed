@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:otto_news/features/config/router.dart';
-import 'package:otto_news/theme/app_theme.dart';
+import 'package:otto_news/core/config/router.dart';
+import 'package:otto_news/core/theme/app_theme.dart';
 
 void main() {
   AppRouterHelper.instance;

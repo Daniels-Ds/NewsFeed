@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../theme/constant/styles.dart';
+import '../theme/constant/styles.dart';
 
 class CardImageWidget extends StatelessWidget {
   final String urlImage;

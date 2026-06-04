@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:otto_news/features/screens/details/details_screen.dart';
-import '../app.dart';
-import '../screens/home/home_screen.dart';
-import '../screens/profile/profile_screen.dart';
-import '../screens/recommendations/reccomendations_screen.dart';
-import '../screens/search/search_screen.dart';
-import '../screens/deferred/deferred_screen.dart';
+import 'package:otto_news/features/details/details_screen.dart';
+import '../../features/app.dart';
+import '../../features/home/home_screen.dart';
+import '../../features/profile/profile_screen.dart';
+import '../../features/recommendations/reccomendations_screen.dart';
+import '../../features/search/search_screen.dart';
+import '../../features/deferred/deferred_screen.dart';
 
 class AppRoutes {
   static const String detailsPath = '/details';

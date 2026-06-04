@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:otto_news/theme/constant/colors.dart';
-import 'package:otto_news/theme/constant/styles.dart';
+import 'package:otto_news/core/theme/constant/colors.dart';
+import 'package:otto_news/core/theme/constant/styles.dart';
 
 class AppTheme {
   static ThemeData themeData = ThemeData(

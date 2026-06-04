@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import '../../global_widgets/app_bar_title_widget.dart';
+import '../../core/global_widgets/app_bar_title_widget.dart';
 
-class ProfileScreen extends StatelessWidget {
-  const ProfileScreen({super.key});
+class DeferredScreen extends StatelessWidget {
+  const DeferredScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -12,7 +12,7 @@ class ProfileScreen extends StatelessWidget {
         child: CustomScrollView(
           slivers: [
             SliverAppBar(
-              title: AppBarTitleWidget(title: 'Настройки',),
+              title: AppBarTitleWidget(title: 'Читать позже',),
             )
           ],
         ),

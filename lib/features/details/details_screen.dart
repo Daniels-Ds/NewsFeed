@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:iconic/iconic.dart';
-import 'package:otto_news/features/global_widgets/image_widget.dart';
-import 'package:otto_news/theme/constant/colors.dart';
+import 'package:otto_news/core/global_widgets/image_widget.dart';
+import 'package:otto_news/core/theme/constant/colors.dart';
 
-import '../../../theme/app_theme.dart';
+import '../../core/theme/app_theme.dart';
 
 class DetailsScreen extends StatefulWidget {
   const DetailsScreen({super.key});
