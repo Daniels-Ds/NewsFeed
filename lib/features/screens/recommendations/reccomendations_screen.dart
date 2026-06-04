@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import '../../global_widgets/app_bar_title_widget.dart';
 
-class ReccomendationsScreen extends StatelessWidget {
-  const ReccomendationsScreen({super.key});
+class RecommendationsScreen extends StatelessWidget {
+  const RecommendationsScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:otto_news/theme/constant/colors.dart';
+import 'package:otto_news/theme/constant/styles.dart';
 
 class AppTheme {
   static ThemeData themeData = ThemeData(
@@ -21,8 +22,13 @@ class AppTheme {
         headlineMedium: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
         headlineSmall: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
         titleMedium: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: ColorsApp.mainTextColor),
-        titleSmall: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: ColorsApp.thirdTextColor)
-      )
+        titleSmall: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: ColorsApp.thirdTextColor),
+        bodyMedium: TextStyle(fontSize: 16, fontWeight: FontWeight.w500, color: ColorsApp.mainTextColor),
+        labelMedium: TextStyle(fontSize: 14, fontWeight: FontWeight.w500, color: ColorsApp.mainTextColor),
+      ),
+    ),
+    elevatedButtonTheme: ElevatedButtonThemeData(
+      style: BoxStyles.elevatedButtonStyle
     )
   );
 }

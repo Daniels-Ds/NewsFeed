@@ -19,4 +19,12 @@ class BoxStyles {
   static final BoxDecoration imageInCardDecoration = BoxDecoration(
     borderRadius: BorderRadius.circular(10)
   );
+
+  static final ButtonStyle elevatedButtonStyle = ButtonStyle(
+    backgroundColor: WidgetStatePropertyAll(ColorsApp.seconBbgColor),
+    shape: WidgetStatePropertyAll(RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(10))
+    ),
+    foregroundColor: WidgetStatePropertyAll(ColorsApp.mainTextColor),
+  );
 }

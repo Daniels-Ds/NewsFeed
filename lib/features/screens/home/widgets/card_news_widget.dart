@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../../theme/app_theme.dart';
 import '../../../../theme/constant/styles.dart';
+import '../../../config/router.dart';
 
 class CardNewsWidget extends StatelessWidget {
   final String urlImage;
@@ -18,22 +20,25 @@ class CardNewsWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: 180,
-      margin: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-      clipBehavior: Clip.hardEdge,
-      decoration: BoxStyles.cardDecoration,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          _CardImageWidget(urlImage: urlImage,),
-          _CardInfoWidget(
-            urlLogo: urlLogo, 
-            newsTitle: newsTitle, 
-            time: time, 
-          ),
-        ],
-      ),
+    return GestureDetector(
+      onTap: () => context.push(AppRoutes.detailsPath),
+      child: Container(
+        width: 180,
+        margin: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+        clipBehavior: Clip.hardEdge,
+        decoration: BoxStyles.cardDecoration,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            _CardImageWidget(urlImage: urlImage,),
+            _CardInfoWidget(
+              urlLogo: urlLogo, 
+              newsTitle: newsTitle, 
+              time: time, 
+            ),
+          ],
+        ),
+      )
     );
   }
 }

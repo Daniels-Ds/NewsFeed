@@ -19,7 +19,7 @@ class _MainPageState extends State<MainPage> {
   int currentIndex = 0;
   final List listPage = [
     HomeScreen(),
-    ReccomendationsScreen(),
+    RecommendationsScreen(),
     DeferredScreen(),
     SearchScreen(),
     ProfileScreen(),

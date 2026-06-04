@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:iconic/iconic.dart';
 import 'package:otto_news/theme/app_theme.dart';
-
 import '../../global_widgets/app_bar_title_widget.dart';
 import 'widgets/card_main_news_widget.dart';
 import 'widgets/card_news_widget.dart';
@@ -12,89 +11,95 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: CustomScrollView(
-        slivers: [
-          _AppBarWidget(),
-          SliverToBoxAdapter(child: SizedBox(height: 10)),
-          SliverToBoxAdapter(
-            child: CardMainNewsWidget(
-              urlImage: 'https://s.yimg.com/ny/api/res/1.2/sEryaP5I7cHu5iekhpHU3Q--/YXBwaWQ9aGlnaGxhbmRlcjt3PTEyNDI7aD04OTE7Y2Y9d2VicA--/https://media.zenfs.com/en/deadline.com/095af09c6f8ac7661113f1ab566cdf54', 
-              urlLogo: 'https://avatars.mds.yandex.net/i?id=90453a5d5597ea953a4faad766c5ff840ab7e892-7012253-images-thumbs&n=13', 
-              newsTitle: 'Пожар в Нотр-Даме: загорелся собор', 
-              time: '1 час назад',
-              
-            ),
-          ),
-          SliverToBoxAdapter(child: SizedBox(height: 20)),
-          SliverToBoxAdapter(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10),
-              child: _SectionNameWidget(sectionTitle: 'Популярное'),
-            ),
-          ),
-          SliverToBoxAdapter(
-            child: SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: Row(
-                children: [
-                  CardNewsWidget(
-                    urlImage: 'https://avatars.mds.yandex.net/i?id=f0ec76167cef69c2eea2c3217dca56d9e893bf39-5476795-images-thumbs&n=13', 
-                    urlLogo: 'https://avatars.mds.yandex.net/i?id=90453a5d5597ea953a4faad766c5ff840ab7e892-7012253-images-thumbs&n=13', 
-                    newsTitle: 'Пожар в Нотр-Даме: загорелся собор', 
-                    time: '1 час назад',
-                  ),
-                  CardNewsWidget(
-                    urlImage: 'https://s.yimg.com/ny/api/res/1.2/sEryaP5I7cHu5iekhpHU3Q--/YXBwaWQ9aGlnaGxhbmRlcjt3PTEyNDI7aD04OTE7Y2Y9d2VicA--/https://media.zenfs.com/en/deadline.com/095af09c6f8ac7661113f1ab566cdf54', 
-                    urlLogo: 'https://avatars.mds.yandex.net/i?id=90453a5d5597ea953a4faad766c5ff840ab7e892-7012253-images-thumbs&n=13', 
-                    newsTitle: 'Пожар в Нотр-Даме: загорелся собор', 
-                    time: '1 час назад',
-                  ),
-                  CardNewsWidget(
-                    urlImage: 'https://s.yimg.com/ny/api/res/1.2/sEryaP5I7cHu5iekhpHU3Q--/YXBwaWQ9aGlnaGxhbmRlcjt3PTEyNDI7aD04OTE7Y2Y9d2VicA--/https://media.zenfs.com/en/deadline.com/095af09c6f8ac7661113f1ab566cdf54', 
-                    urlLogo: 'https://avatars.mds.yandex.net/i?id=90453a5d5597ea953a4faad766c5ff840ab7e892-7012253-images-thumbs&n=13', 
-                    newsTitle: 'Пожар в Нотр-Даме: загорелся собор', 
-                    time: '1 час назад',
-                  ),
-                ],
+      child: RefreshIndicator(
+        edgeOffset: 80,
+        displacement: 20,
+        strokeWidth: 3,
+        onRefresh: _fetchNewData,
+        child: CustomScrollView(
+          slivers: [
+            _AppBarWidget(),
+            SliverPadding(padding: EdgeInsets.only(top: 10)),
+            SliverToBoxAdapter(
+              child: CardMainNewsWidget(
+                  urlImage: 'https://s.yimg.com/ny/api/res/1.2/sEryaP5I7cHu5iekhpHU3Q--/YXBwaWQ9aGlnaGxhbmRlcjt3PTEyNDI7aD04OTE7Y2Y9d2VicA--/https://media.zenfs.com/en/deadline.com/095af09c6f8ac7661113f1ab566cdf54', 
+                  urlLogo: 'https://avatars.mds.yandex.net/i?id=90453a5d5597ea953a4faad766c5ff840ab7e892-7012253-images-thumbs&n=13', 
+                  newsTitle: 'Пожар в Нотр-Даме: загорелся собор', 
+                  time: '1 час назад',
+                  
+                ),
+              ),
+            SliverPadding(padding: EdgeInsets.only(top: 20)),
+            SliverPadding(
+              padding: EdgeInsets.symmetric(horizontal: 10),
+              sliver: SliverToBoxAdapter(
+                child: _SectionNameWidget(sectionTitle: 'Популярное'),
               ),
             ),
-          ),
-          SliverToBoxAdapter(child: SizedBox(height: 15)),
-          SliverToBoxAdapter(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10),
-              child: _SectionNameWidget(sectionTitle: 'Для вас'),
-            ),
-          ),
-          SliverToBoxAdapter(
-            child: SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: Row(
-                children: [
-                  CardNewsWidget(
-                    urlImage: 'https://s.yimg.com/ny/api/res/1.2/sEryaP5I7cHu5iekhpHU3Q--/YXBwaWQ9aGlnaGxhbmRlcjt3PTEyNDI7aD04OTE7Y2Y9d2VicA--/https://media.zenfs.com/en/deadline.com/095af09c6f8ac7661113f1ab566cdf54', 
-                    urlLogo: 'https://avatars.mds.yandex.net/i?id=90453a5d5597ea953a4faad766c5ff840ab7e892-7012253-images-thumbs&n=13', 
-                    newsTitle: 'Пожар в Нотр-Даме: загорелся собор', 
-                    time: '1 час назад',
-                  ),
-                  CardNewsWidget(
-                    urlImage: 'https://s.yimg.com/ny/api/res/1.2/sEryaP5I7cHu5iekhpHU3Q--/YXBwaWQ9aGlnaGxhbmRlcjt3PTEyNDI7aD04OTE7Y2Y9d2VicA--/https://media.zenfs.com/en/deadline.com/095af09c6f8ac7661113f1ab566cdf54', 
-                    urlLogo: 'https://avatars.mds.yandex.net/i?id=90453a5d5597ea953a4faad766c5ff840ab7e892-7012253-images-thumbs&n=13', 
-                    newsTitle: 'Пожар в Нотр-Даме', 
-                    time: '1 час назад',
-                  ),
-                  CardNewsWidget(
-                    urlImage: 'https://s.yimg.com/ny/api/res/1.2/sEryaP5I7cHu5iekhpHU3Q--/YXBwaWQ9aGlnaGxhbmRlcjt3PTEyNDI7aD04OTE7Y2Y9d2VicA--/https://media.zenfs.com/en/deadline.com/095af09c6f8ac7661113f1ab566cdf54', 
-                    urlLogo: 'https://avatars.mds.yandex.net/i?id=90453a5d5597ea953a4faad766c5ff840ab7e892-7012253-images-thumbs&n=13', 
-                    newsTitle: 'Пожар в Нотр-Даме: загорелся собор', 
-                    time: '1 час назад',
-                  ),
-                ],
+            SliverToBoxAdapter(
+              child: SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  children: [
+                    CardNewsWidget(
+                      urlImage: 'https://avatars.mds.yandex.net/i?id=f0ec76167cef69c2eea2c3217dca56d9e893bf39-5476795-images-thumbs&n=13', 
+                      urlLogo: 'https://avatars.mds.yandex.net/i?id=90453a5d5597ea953a4faad766c5ff840ab7e892-7012253-images-thumbs&n=13', 
+                      newsTitle: 'Пожар в Нотр-Даме: загорелся собор', 
+                      time: '1 час назад',
+                    ),
+                    CardNewsWidget(
+                      urlImage: 'https://s.yimg.com/ny/api/res/1.2/sEryaP5I7cHu5iekhpHU3Q--/YXBwaWQ9aGlnaGxhbmRlcjt3PTEyNDI7aD04OTE7Y2Y9d2VicA--/https://media.zenfs.com/en/deadline.com/095af09c6f8ac7661113f1ab566cdf54', 
+                      urlLogo: 'https://avatars.mds.yandex.net/i?id=90453a5d5597ea953a4faad766c5ff840ab7e892-7012253-images-thumbs&n=13', 
+                      newsTitle: 'Пожар в Нотр-Даме: загорелся собор', 
+                      time: '1 час назад',
+                    ),
+                    CardNewsWidget(
+                      urlImage: 'https://s.yimg.com/ny/api/res/1.2/sEryaP5I7cHu5iekhpHU3Q--/YXBwaWQ9aGlnaGxhbmRlcjt3PTEyNDI7aD04OTE7Y2Y9d2VicA--/https://media.zenfs.com/en/deadline.com/095af09c6f8ac7661113f1ab566cdf54', 
+                      urlLogo: 'https://avatars.mds.yandex.net/i?id=90453a5d5597ea953a4faad766c5ff840ab7e892-7012253-images-thumbs&n=13', 
+                      newsTitle: 'Пожар в Нотр-Даме: загорелся собор', 
+                      time: '1 час назад',
+                    ),
+                  ],
+                ),
               ),
             ),
-          ),
-        SliverToBoxAdapter(child: SizedBox(height: 80)),
-        ],
+            SliverPadding(padding: EdgeInsets.only(top: 10)),
+            SliverPadding(
+              padding: EdgeInsets.symmetric(horizontal: 10),
+              sliver: SliverToBoxAdapter(
+                child: _SectionNameWidget(sectionTitle: 'Для вас'),
+              ),
+            ),
+            SliverToBoxAdapter(
+              child: SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  children: [
+                    CardNewsWidget(
+                      urlImage: 'https://s.yimg.com/ny/api/res/1.2/sEryaP5I7cHu5iekhpHU3Q--/YXBwaWQ9aGlnaGxhbmRlcjt3PTEyNDI7aD04OTE7Y2Y9d2VicA--/https://media.zenfs.com/en/deadline.com/095af09c6f8ac7661113f1ab566cdf54', 
+                      urlLogo: 'https://avatars.mds.yandex.net/i?id=90453a5d5597ea953a4faad766c5ff840ab7e892-7012253-images-thumbs&n=13', 
+                      newsTitle: 'Пожар в Нотр-Даме: загорелся собор', 
+                      time: '1 час назад',
+                    ),
+                    CardNewsWidget(
+                      urlImage: 'https://s.yimg.com/ny/api/res/1.2/sEryaP5I7cHu5iekhpHU3Q--/YXBwaWQ9aGlnaGxhbmRlcjt3PTEyNDI7aD04OTE7Y2Y9d2VicA--/https://media.zenfs.com/en/deadline.com/095af09c6f8ac7661113f1ab566cdf54', 
+                      urlLogo: 'https://avatars.mds.yandex.net/i?id=90453a5d5597ea953a4faad766c5ff840ab7e892-7012253-images-thumbs&n=13', 
+                      newsTitle: 'Пожар в Нотр-Даме', 
+                      time: '1 час назад',
+                    ),
+                    CardNewsWidget(
+                      urlImage: 'https://s.yimg.com/ny/api/res/1.2/sEryaP5I7cHu5iekhpHU3Q--/YXBwaWQ9aGlnaGxhbmRlcjt3PTEyNDI7aD04OTE7Y2Y9d2VicA--/https://media.zenfs.com/en/deadline.com/095af09c6f8ac7661113f1ab566cdf54', 
+                      urlLogo: 'https://avatars.mds.yandex.net/i?id=90453a5d5597ea953a4faad766c5ff840ab7e892-7012253-images-thumbs&n=13', 
+                      newsTitle: 'Пожар в Нотр-Даме: загорелся собор', 
+                      time: '1 час назад',
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          SliverPadding(padding: EdgeInsets.only(top: 80)),
+          ],
+        ),
       ),
     );
   }
@@ -146,4 +151,8 @@ class _TextDateWidget extends StatelessWidget {
       style: AppTheme.themeData.textTheme.titleSmall,
       );
   }
+}
+
+Future<void> _fetchNewData() async {
+  await Future.delayed(const Duration(seconds: 2));
 }

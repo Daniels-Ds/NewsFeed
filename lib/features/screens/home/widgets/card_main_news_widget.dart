@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../../theme/app_theme.dart';
 import '../../../../theme/constant/styles.dart';
+import '../../../config/router.dart';
+import '../../../global_widgets/image_widget.dart';
 
 class CardMainNewsWidget extends StatelessWidget {
   final String urlImage;
@@ -18,21 +21,24 @@ class CardMainNewsWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.symmetric(horizontal: 10),
-      clipBehavior: Clip.hardEdge,
-      decoration: BoxStyles.cardDecoration,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          _CardImageWidget(urlImage: urlImage,),
-          _CardInfoWidget(
-            urlLogo: urlLogo, 
-            newsTitle: newsTitle, 
-            time: time, 
-          ),
-        ],
-      ),
+    return GestureDetector(
+      onTap: () => context.push(AppRoutes.detailsPath),
+      child: Container(
+        margin: EdgeInsets.symmetric(horizontal: 10),
+        clipBehavior: Clip.hardEdge,
+        decoration: BoxStyles.cardDecoration,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            CardImageWidget(urlImage: urlImage,),
+            _CardInfoWidget(
+              urlLogo: urlLogo, 
+              newsTitle: newsTitle, 
+              time: time, 
+            ),
+          ],
+        ),
+      )
     );
   }
 }
@@ -68,22 +74,3 @@ class _CardInfoWidget extends StatelessWidget {
   }
 }
 
-class _CardImageWidget extends StatelessWidget {
-  final String urlImage;
-  const _CardImageWidget({
-    required this.urlImage
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      clipBehavior: Clip.hardEdge,
-      height: 200,
-      decoration: BoxStyles.imageInCardDecoration, 
-      child: Image.network(
-        urlImage,
-        fit: BoxFit.cover,
-        width: double.infinity,
-        ));
-  }
-}
