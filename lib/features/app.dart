@@ -1,8 +1,11 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:iconic/iconic.dart';
 import 'package:otto_news/core/theme/constant/colors.dart';
+import 'package:otto_news/features/home/news_provider.dart';
+import 'package:provider/provider.dart';
 
-import 'deferred/deferred_screen.dart';
+import 'read later/read_later_screen.dart';
 import 'home/home_screen.dart';
 import 'profile/profile_screen.dart';
 import 'recommendations/reccomendations_screen.dart';
@@ -16,14 +19,22 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
+  late final Dio dio;
+  late List listPage;
   int currentIndex = 0;
-  final List listPage = [
-    HomeScreen(),
-    RecommendationsScreen(),
-    DeferredScreen(),
-    SearchScreen(),
-    ProfileScreen(),
-  ];
+
+  @override
+  void initState() {
+    super.initState();
+      dio = Dio();
+      listPage = [
+        ChangeNotifierProvider(child: const HomeScreen(), create: (context) => NewsProvider(dio: dio)),
+        const RecommendationsScreen(),
+        const DeferredScreen(),
+        const SearchScreen(),
+        const ProfileScreen(),
+    ];
+  }
 
   @override
   Widget build(BuildContext context) {

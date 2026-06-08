@@ -7,13 +7,13 @@ import '../../../core/config/router.dart';
 
 class CardNewsWidget extends StatelessWidget {
   final String urlImage;
-  final String urlLogo;
+  final String? urlLogo;
   final String newsTitle;
   final String time;
   const CardNewsWidget({
     super.key, 
     required this.urlImage, 
-    required this.urlLogo, 
+    this.urlLogo,
     required this.newsTitle, 
     required this.time
   });
@@ -32,7 +32,7 @@ class CardNewsWidget extends StatelessWidget {
           children: [
             _CardImageWidget(urlImage: urlImage,),
             _CardInfoWidget(
-              urlLogo: urlLogo, 
+              urlLogo: urlLogo ?? '', 
               newsTitle: newsTitle, 
               time: time, 
             ),
@@ -44,7 +44,7 @@ class CardNewsWidget extends StatelessWidget {
 }
 
 class _CardInfoWidget extends StatelessWidget {
-  final String urlLogo;
+  final String? urlLogo;
   final String newsTitle;
   final String time;
   const _CardInfoWidget({
@@ -62,10 +62,10 @@ class _CardInfoWidget extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Image.network(
-            height: 14,
-            fit: BoxFit.contain,
-            urlLogo),
+          // Image.network(
+          //   height: 14,
+          //   fit: BoxFit.contain,
+          //   urlLogo?.isEmpty == true ? '' : urlLogo.toString()),
           SizedBox(height: 10),
           Text(newsTitle, maxLines: 3, overflow: TextOverflow.ellipsis , style: AppTheme.themeData.textTheme.titleMedium),
           Spacer(),
@@ -77,7 +77,7 @@ class _CardInfoWidget extends StatelessWidget {
 }
 
 class _CardImageWidget extends StatelessWidget {
-  final String urlImage;
+  final String? urlImage;
   const _CardImageWidget({
     required this.urlImage
   });
@@ -89,7 +89,7 @@ class _CardImageWidget extends StatelessWidget {
       height: 120,
       decoration: BoxStyles.imageInCardDecoration, 
       child: Image.network(
-        urlImage,
+        urlImage?.isNotEmpty == true ? urlImage! : 'https://avatars.mds.yandex.net/i?id=2a89487ea076371488e7e5c6e34fa3de_l-7045543-images-thumbs&n=13',
         fit: BoxFit.cover,
         width: double.infinity,
         ));
