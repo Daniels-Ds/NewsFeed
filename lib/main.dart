@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:otto_news/core/config/router.dart';
 import 'package:otto_news/core/theme/app_theme.dart';
 
-void main() {
-  AppRouterHelper.instance;
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  AppRouterHelper.instance;
   runApp(NewsApp());
 }
 

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:intl/intl.dart';
 
 import '../../../core/theme/app_theme.dart';
 import '../../../core/theme/constant/styles.dart';
@@ -7,13 +8,13 @@ import '../../../core/config/router.dart';
 
 class CardNewsWidget extends StatelessWidget {
   final String urlImage;
-  final String? urlLogo;
+  final String? isSource;
   final String newsTitle;
-  final String time;
+  final DateTime time;
   const CardNewsWidget({
     super.key, 
     required this.urlImage, 
-    this.urlLogo,
+    this.isSource,
     required this.newsTitle, 
     required this.time
   });
@@ -32,7 +33,7 @@ class CardNewsWidget extends StatelessWidget {
           children: [
             _CardImageWidget(urlImage: urlImage,),
             _CardInfoWidget(
-              urlLogo: urlLogo ?? '', 
+              isSource: isSource ?? '', 
               newsTitle: newsTitle, 
               time: time, 
             ),
@@ -44,11 +45,11 @@ class CardNewsWidget extends StatelessWidget {
 }
 
 class _CardInfoWidget extends StatelessWidget {
-  final String? urlLogo;
+  final String? isSource;
   final String newsTitle;
-  final String time;
+  final DateTime time;
   const _CardInfoWidget({
-    required this.urlLogo, 
+    required this.isSource, 
     required this.newsTitle, 
     required this.time
   });
@@ -62,14 +63,18 @@ class _CardInfoWidget extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // Image.network(
-          //   height: 14,
-          //   fit: BoxFit.contain,
-          //   urlLogo?.isEmpty == true ? '' : urlLogo.toString()),
+          if (isSource!.isNotEmpty) Text(isSource!, style: AppTheme.themeData.textTheme.titleSmall),
           SizedBox(height: 10),
           Text(newsTitle, maxLines: 3, overflow: TextOverflow.ellipsis , style: AppTheme.themeData.textTheme.titleMedium),
           Spacer(),
-          Text(time, style: AppTheme.themeData.textTheme.titleSmall)
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(DateFormat('dd.MM.yyyy HH:mm').format(time), style: AppTheme.themeData.textTheme.titleSmall),
+              // Text('${time.hour}:${time.minute}', style: AppTheme.themeData.textTheme.titleSmall),
+              // Text('${time.day}.${time.month}.${time.year}', style: AppTheme.themeData.textTheme.titleSmall)
+            ],
+          ),
         ],
       ),
     );

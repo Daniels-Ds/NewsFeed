@@ -11,6 +11,8 @@ import 'profile/profile_screen.dart';
 import 'recommendations/reccomendations_screen.dart';
 import 'search/search_screen.dart';
 
+import 'package:intl/date_symbol_data_local.dart';
+
 class MainPage extends StatefulWidget {
   const MainPage({super.key});
 
@@ -26,6 +28,9 @@ class _MainPageState extends State<MainPage> {
   @override
   void initState() {
     super.initState();
+
+      initializeDateFormatting();
+
       dio = Dio();
       listPage = [
         ChangeNotifierProvider(child: const HomeScreen(), create: (context) => NewsProvider(dio: dio)),

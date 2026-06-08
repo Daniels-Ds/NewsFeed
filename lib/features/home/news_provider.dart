@@ -8,10 +8,20 @@ class NewsProvider extends ChangeNotifier {
 
   final Dio _dio;
   late final RssNewsSource _rssSource;
+  List<String> urls = [
+    'https://www.dp.ru/news.rss',
+    'https://ria.ru/export/rss2/archive/index.xml',
+    'https://rg.ru/xml/index.xml',
+  ];
 
   Future<void> loadNews() async {
-    listNews = await _rssSource.fetchArticles('https://www.dp.ru/news.rss');
-    notifyListeners();
+    listNews.clear();
+    for (var el in urls) {
+      final data = await _rssSource.fetchArticles(el);
+      if (data.isNotEmpty) listNews.addAll(data);
+    }
+    listNews.sort((a, b) => b.publishedAt.compareTo(a.publishedAt));
+    if (hasListeners) notifyListeners();
   }
 
   NewsProvider({required Dio dio}) : _dio = dio {

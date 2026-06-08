@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:iconic/iconic.dart';
+import 'package:intl/intl.dart';
 import 'package:otto_news/core/theme/app_theme.dart';
 import 'package:otto_news/features/home/news_provider.dart';
 import 'package:provider/provider.dart';
@@ -45,7 +45,8 @@ class _HomeScreenState extends State<HomeScreen> {
             SliverList.separated(
             itemCount: model.listNews.length,
             itemBuilder: (BuildContext context, index) {
-              return CardNewsWidget(newsTitle: model.listNews[index].title, urlImage: model.listNews[index].imageUrl, time: model.listNews[index].publishedAt,);
+              if (index >= model.listNews.length) return const SizedBox();
+              return CardNewsWidget(newsTitle: model.listNews[index].title, urlImage: model.listNews[index].imageUrl, time: model.listNews[index].publishedAt, isSource: model.listNews[index].isSource,);
             }, 
             separatorBuilder: (BuildContext context, index) {
               return SizedBox(height: 10,);
@@ -58,21 +59,21 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 }
 
-class _SectionNameWidget extends StatelessWidget {
-  final String sectionTitle;
-  const _SectionNameWidget({required this.sectionTitle});
+// class _SectionNameWidget extends StatelessWidget {
+//   final String sectionTitle;
+//   const _SectionNameWidget({required this.sectionTitle});
 
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Text(sectionTitle, style: AppTheme.themeData.textTheme.headlineMedium,),
-        SizedBox(width: 10),
-        Icon(Iconic.angle_small_right, size: 13, fontWeight: FontWeight.bold),
-      ],
-    );
-  }
-}
+//   @override
+//   Widget build(BuildContext context) {
+//     return Row(
+//       children: [
+//         Text(sectionTitle, style: AppTheme.themeData.textTheme.headlineMedium,),
+//         SizedBox(width: 10),
+//         Icon(Iconic.angle_small_right, size: 13, fontWeight: FontWeight.bold),
+//       ],
+//     );
+//   }
+// }
 
 class _AppBarWidget extends StatelessWidget {
   const _AppBarWidget();
@@ -100,12 +101,8 @@ class _TextDateWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text('Понедельник, 26 мая', 
-      style: AppTheme.themeData.textTheme.titleSmall,
-      );
+    return Text(DateFormat('EEEE, d MMMM', 'ru').format(DateTime.now()).toUpperCase(),
+      style: AppTheme.themeData.textTheme.titleSmall
+    );
   }
-}
-
-Future<void> _fetchNewData() async {
-  await Future.delayed(const Duration(seconds: 2));
 }
