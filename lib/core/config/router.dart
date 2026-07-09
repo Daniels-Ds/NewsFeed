@@ -6,7 +6,7 @@ import '../../features/home/home_screen.dart';
 import '../../features/profile/profile_screen.dart';
 import '../../features/recommendations/reccomendations_screen.dart';
 import '../../features/search/search_screen.dart';
-import '../../features/deferred/deferred_screen.dart';
+import '../../features/read later/read_later_screen.dart';
 
 class AppRoutes {
   static const String detailsPath = '/details';
