@@ -23,6 +23,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     final model = context.watch<NewsProvider>();
+    var firstNew = model.listNews.where((el) => el.imageUrl.isNotEmpty && el.description.isNotEmpty);
     return Center(
       child: RefreshIndicator(
         edgeOffset: 80,
@@ -33,24 +34,26 @@ class _HomeScreenState extends State<HomeScreen> {
           slivers: [
             _AppBarWidget(),
             SliverPadding(padding: EdgeInsets.only(top: 10)),
-            // SliverToBoxAdapter(
-            //   child: CardMainNewsWidget(
-            //       urlImage: 'https://s.yimg.com/ny/api/res/1.2/sEryaP5I7cHu5iekhpHU3Q--/YXBwaWQ9aGlnaGxhbmRlcjt3PTEyNDI7aD04OTE7Y2Y9d2VicA--/https://media.zenfs.com/en/deadline.com/095af09c6f8ac7661113f1ab566cdf54', 
-            //       urlLogo: 'https://avatars.mds.yandex.net/i?id=90453a5d5597ea953a4faad766c5ff840ab7e892-7012253-images-thumbs&n=13', 
-            //       newsTitle: 'Пожар в Нотр-Даме: загорелся собор', 
-            //       time: '1 час назад',      
-            //   ),
-            // ),
             // SliverToBoxAdapter(child: _SectionNameWidget(sectionTitle: 'Популярное'),),
-            SliverList.separated(
-            itemCount: model.listNews.length,
-            itemBuilder: (BuildContext context, index) {
-              if (index >= model.listNews.length) return const SizedBox();
-              return CardNewsWidget(newsTitle: model.listNews[index].title, urlImage: model.listNews[index].imageUrl, time: model.listNews[index].publishedAt, isSource: model.listNews[index].isSource,);
-            }, 
-            separatorBuilder: (BuildContext context, index) {
-              return SizedBox(height: 10,);
-            }),
+            SliverToBoxAdapter(
+              child: 
+              model.listNews.isNotEmpty ? CardNewsWidget(newsTitle: firstNew.first.title, urlImage: firstNew.first.imageUrl, time: firstNew.first.publishedAt, isSource: firstNew.first.isSource, description: firstNew.first.description,) : SizedBox(),
+            ),
+            SizedBox(height: 20),
+            Row(
+              children: [
+                
+              ],
+            )
+            // SliverList.separated(
+            // itemCount: model.listNews.length,
+            // itemBuilder: (BuildContext context, index) {
+            //   if (index >= model.listNews.length) return const SizedBox();
+            //   return CardNewsWidget(newsTitle: model.listNews[index].title, urlImage: model.listNews[index].imageUrl, time: model.listNews[index].publishedAt, isSource: model.listNews[index].isSource,);
+            // }, 
+            // separatorBuilder: (BuildContext context, index) {
+            //   return SizedBox(height: 10,);
+            // }),
             SliverPadding(padding: EdgeInsets.only(top: 80)),
           ],
         ),

@@ -12,6 +12,7 @@ dependencies:
   flutter:
     sdk: flutter
 
+  timeago: ^3.3.0
   iconic: ^0.1.0
   google_fonts: ^8.1.0
   cupertino_icons: ^1.0.8
@@ -24,6 +25,7 @@ dependencies:
   provider: ^6.1.5+1
 
   intl: ^0.17.0
+  google_nav_bar: ^5.0.7
 
   
 

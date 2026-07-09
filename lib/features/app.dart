@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:iconic/iconic.dart';
 import 'package:otto_news/core/theme/constant/colors.dart';
 import 'package:otto_news/features/home/news_provider.dart';
@@ -37,7 +38,6 @@ class _MainPageState extends State<MainPage> {
         const RecommendationsScreen(),
         const DeferredScreen(),
         const SearchScreen(),
-        const ProfileScreen(),
     ];
   }
 
@@ -50,28 +50,56 @@ class _MainPageState extends State<MainPage> {
           alignment: AlignmentDirectional.bottomCenter,
           children: [
               listPage[currentIndex],
-              BottomNavigationBar(
-              currentIndex: currentIndex,
-              onTap: (index) {
-                setState(() {
-                  currentIndex = index;
-                });
-              },
-              type: BottomNavigationBarType.fixed,
-              iconSize: 20,
-              selectedFontSize: 12,
-              unselectedFontSize: 12,
-              selectedItemColor: ColorsApp.seconTextColor,
-              unselectedItemColor: ColorsApp.thirdTextColor,
-              items: 
-                [
-                  BottomNavigationBarItem(icon: Icon(Iconic.home_solid), label: 'Главная'),
-                  BottomNavigationBarItem(icon: Icon(Iconic.eye_solid), label: 'Для вас'),
-                  BottomNavigationBarItem(icon: Icon(Iconic.clock_solid), label: 'Позже'),
-                  BottomNavigationBarItem(icon: Icon(Iconic.search_bold), label: 'Поиск'),
-                  BottomNavigationBarItem(icon: Icon(Iconic.settings_solid), label: 'Настройки')
-                ]
+              SizedBox(
+                height: 80,
+                child: GNav(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  backgroundColor: ColorsApp.mainTextColor,
+                  tabBackgroundColor: ColorsApp.tabColorNavBar,
+                  color: ColorsApp.mainTextColorNavBar,
+                  gap: 10,
+                  rippleColor: ColorsApp.favoriteColor,
+                  activeColor: Colors.white,
+                  tabBorderRadius: 20,
+                  iconSize: 18,
+                  padding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+                  selectedIndex: currentIndex,
+                  onTabChange: (index) {
+                  setState(() {
+                    currentIndex = index;
+                    });
+                  },
+                  tabs: 
+                    [
+                      GButton(icon: Iconic.home_solid, text: 'Главная'),
+                      GButton(icon: Iconic.eye_solid, text: 'Для вас'),
+                      GButton(icon: Iconic.clock_solid, text: 'Позже'),
+                      GButton(icon: Iconic.search_bold, text: 'Поиск'),
+                    ]
+                ),
               ),
+              // BottomNavigationBar(
+              // backgroundColor: ColorsApp.mainTextColor,
+              // currentIndex: currentIndex,
+              // onTap: (index) {
+              //   setState(() {
+              //     currentIndex = index;
+              //   });
+              // },
+              // type: BottomNavigationBarType.fixed,
+              // iconSize: 18,
+              // selectedFontSize: 11,
+              // unselectedFontSize: 11,
+              // selectedItemColor: ColorsApp.seconTextColor,
+              // unselectedItemColor: ColorsApp.thirdTextColor,
+              // items: 
+              //   [
+              //     BottomNavigationBarItem(icon: Icon(Iconic.home_solid), label: 'Главная'),
+              //     BottomNavigationBarItem(icon: Icon(Iconic.eye_solid), label: 'Для вас'),
+              //     BottomNavigationBarItem(icon: Icon(Iconic.clock_solid), label: 'Позже'),
+              //     BottomNavigationBarItem(icon: Icon(Iconic.search_bold), label: 'Поиск')
+              //   ]
+              // ),
             ]
           ),
       ),

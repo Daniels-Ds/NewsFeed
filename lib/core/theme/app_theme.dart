@@ -18,6 +18,7 @@ class AppTheme {
       splashColor: ColorsApp.transparent,
       highlightColor: ColorsApp.transparent,
       textTheme: GoogleFonts.libreFranklinTextTheme(TextTheme(
+        titleLarge: TextStyle(fontWeight: FontWeight.bold, fontSize: 32, height: 1),
         headlineLarge: TextStyle(fontWeight: FontWeight.bold, fontSize: 28),
         headlineMedium: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
         headlineSmall: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
