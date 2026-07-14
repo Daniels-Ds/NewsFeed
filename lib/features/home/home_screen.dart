@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:otto_news/core/theme/app_theme.dart';
+import 'package:otto_news/core/theme/constant/colors.dart';
+import 'package:otto_news/data/models/article_model.dart';
 import 'package:otto_news/features/home/news_provider.dart';
+import 'package:otto_news/features/home/widgets/card_main_news_widget.dart';
 import 'package:provider/provider.dart';
 import '../../core/global_widgets/app_bar_title_widget.dart';
 import 'widgets/card_news_widget.dart';
@@ -20,44 +23,103 @@ class _HomeScreenState extends State<HomeScreen> {
     super.initState();
   }
 
+  final List<String> category = [
+    "Все новости",
+    "Экономика",
+    "Спорт",
+    "Автомобили",
+    "Сельхозхозяйство",
+    "Психология",
+    "Музыка",
+    "Еда",
+    "Образование",
+    "Политика",
+  ];
+
+  int selectedIndex = 0;
+  
   @override
   Widget build(BuildContext context) {
-    final model = context.watch<NewsProvider>();
-    var firstNew = model.listNews.where((el) => el.imageUrl.isNotEmpty && el.description.isNotEmpty);
+  
+  final model = context.watch<NewsProvider>();
+  final listNews = model.listNews;
+  var firstNew = model.listNews.where((el) => el.imageUrl.isNotEmpty && el.description.isNotEmpty);
+
     return Center(
       child: RefreshIndicator(
         edgeOffset: 80,
         displacement: 20,
         strokeWidth: 3,
         onRefresh: model.loadNews,
-        child: CustomScrollView(
-          slivers: [
-            _AppBarWidget(),
-            SliverPadding(padding: EdgeInsets.only(top: 10)),
-            // SliverToBoxAdapter(child: _SectionNameWidget(sectionTitle: 'Популярное'),),
-            SliverToBoxAdapter(
-              child: 
-              model.listNews.isNotEmpty ? CardNewsWidget(newsTitle: firstNew.first.title, urlImage: firstNew.first.imageUrl, time: firstNew.first.publishedAt, isSource: firstNew.first.isSource, description: firstNew.first.description,) : SizedBox(),
-            ),
-            SizedBox(height: 20),
-            Row(
-              children: [
-                
-              ],
-            )
-            // SliverList.separated(
-            // itemCount: model.listNews.length,
-            // itemBuilder: (BuildContext context, index) {
-            //   if (index >= model.listNews.length) return const SizedBox();
-            //   return CardNewsWidget(newsTitle: model.listNews[index].title, urlImage: model.listNews[index].imageUrl, time: model.listNews[index].publishedAt, isSource: model.listNews[index].isSource,);
-            // }, 
-            // separatorBuilder: (BuildContext context, index) {
-            //   return SizedBox(height: 10,);
-            // }),
-            SliverPadding(padding: EdgeInsets.only(top: 80)),
-          ],
-        ),
+        child: 
+        model.listNews.isEmpty ? 
+        Center(
+          child: 
+          CircularProgressIndicator(color: ColorsApp.tabColorNavBar,)) :
+          CustomScrollView(
+            slivers: [
+              _AppBarWidget(),
+              SliverPadding(padding: EdgeInsets.only(top: 10)),
+              SliverToBoxAdapter(
+                child: 
+                model.listNews.isNotEmpty ? CardNewsWidget(newsTitle: firstNew.first.title, urlImage: firstNew.first.imageUrl, time: firstNew.first.publishedAt, isSource: firstNew.first.isSource, description: firstNew.first.description,) : SizedBox(),
+              ),
+              SliverToBoxAdapter(child: 
+                Padding(
+                  padding: const EdgeInsets.only(right: 10, left: 10, bottom: 30),
+                  child: SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Row(
+                        children: [
+                          for (var i = 0; i < category.length; i++)
+                          Padding(
+                            padding: const EdgeInsets.only(right: 5),
+                            child: GestureDetector(
+                              onTap: () {
+                                if (selectedIndex != i) {
+                                  setState(() => selectedIndex = i);
+                                }
+                              },
+                              child: CategoryChoiceWidget(
+                                toggle: selectedIndex == i,
+                                titleCategory: category[i],
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  )
+                ),
+                SliverList.builder(
+                  itemBuilder: (BuildContext context, int index) {
+                    return model.listNews.isNotEmpty ? CardMainNewsWidget(urlImage: listNews[index].imageUrl, discription: listNews[index].description, newsTitle: listNews[index].title, time: listNews[index].publishedAt, author: listNews[index].isSource) : SizedBox();
+                  },
+                  itemCount: model.listNews.length),
+              SliverPadding(padding: EdgeInsets.only(top: 80)),
+            ],
+          ),
       ),
+    );
+  }
+}
+
+class CategoryChoiceWidget extends StatelessWidget {
+  final bool toggle;
+  final String titleCategory;
+  const CategoryChoiceWidget({
+    super.key, required this.titleCategory, required this.toggle,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        color: toggle ? ColorsApp.mainTextColor : ColorsApp.seconBbgColor,
+        borderRadius: BorderRadius.circular(20)
+      ),
+      padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+      child: Text(titleCategory, style: toggle ? AppTheme.themeData.textTheme.labelSmall : AppTheme.themeData.textTheme.bodySmall),
     );
   }
 }

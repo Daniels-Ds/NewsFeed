@@ -71,7 +71,9 @@ class _CardInfoWidget extends StatelessWidget {
           Row(
             children: [
               if (isSource!.isNotEmpty) Text(isSource!, style: AppTheme.themeData.textTheme.titleSmall),
-              SizedBox(width: 20),
+              SizedBox(width: 10),
+              Text('•'),
+              SizedBox(width: 10),
               Text(
                 timeago.format(time, locale: 'ru'), style: AppTheme.themeData.textTheme.titleSmall),
             ],

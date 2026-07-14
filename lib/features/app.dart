@@ -8,7 +8,6 @@ import 'package:provider/provider.dart';
 
 import 'read later/read_later_screen.dart';
 import 'home/home_screen.dart';
-import 'profile/profile_screen.dart';
 import 'recommendations/reccomendations_screen.dart';
 import 'search/search_screen.dart';
 
@@ -66,7 +65,9 @@ class _MainPageState extends State<MainPage> {
                   selectedIndex: currentIndex,
                   onTabChange: (index) {
                   setState(() {
-                    currentIndex = index;
+                    if (currentIndex != index) {
+                      currentIndex = index;
+                    }
                     });
                   },
                   tabs: 
@@ -78,28 +79,6 @@ class _MainPageState extends State<MainPage> {
                     ]
                 ),
               ),
-              // BottomNavigationBar(
-              // backgroundColor: ColorsApp.mainTextColor,
-              // currentIndex: currentIndex,
-              // onTap: (index) {
-              //   setState(() {
-              //     currentIndex = index;
-              //   });
-              // },
-              // type: BottomNavigationBarType.fixed,
-              // iconSize: 18,
-              // selectedFontSize: 11,
-              // unselectedFontSize: 11,
-              // selectedItemColor: ColorsApp.seconTextColor,
-              // unselectedItemColor: ColorsApp.thirdTextColor,
-              // items: 
-              //   [
-              //     BottomNavigationBarItem(icon: Icon(Iconic.home_solid), label: 'Главная'),
-              //     BottomNavigationBarItem(icon: Icon(Iconic.eye_solid), label: 'Для вас'),
-              //     BottomNavigationBarItem(icon: Icon(Iconic.clock_solid), label: 'Позже'),
-              //     BottomNavigationBarItem(icon: Icon(Iconic.search_bold), label: 'Поиск')
-              //   ]
-              // ),
             ]
           ),
       ),

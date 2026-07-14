@@ -12,10 +12,10 @@ class CardImageWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       clipBehavior: Clip.hardEdge,
-      height: 200,
+      height: 100,
       decoration: BoxStyles.imageInCardDecoration, 
       child: Image.network(
-        urlImage?.isNotEmpty == true ? urlImage! : 'https://avatars.mds.yandex.net/i?id=2a89487ea076371488e7e5c6e34fa3de_l-7045543-images-thumbs&n=13',
+        urlImage?.isNotEmpty == true ? urlImage! : '',
         fit: BoxFit.cover,
         width: double.infinity,
         ));

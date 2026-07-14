@@ -3,7 +3,6 @@ import 'package:go_router/go_router.dart';
 import 'package:otto_news/features/details/details_screen.dart';
 import '../../features/app.dart';
 import '../../features/home/home_screen.dart';
-import '../../features/profile/profile_screen.dart';
 import '../../features/recommendations/reccomendations_screen.dart';
 import '../../features/search/search_screen.dart';
 import '../../features/read later/read_later_screen.dart';
@@ -54,10 +53,6 @@ class AppRouterHelper {
       GoRoute(
         path: AppRoutes.defferedPath,
         builder: (context, state) => const DeferredScreen(),
-      ),
-      GoRoute(
-        path: AppRoutes.profilePath,
-        builder: (context, state) => const ProfileScreen(),
       ),
       GoRoute(
         path: AppRoutes.detailsPath,

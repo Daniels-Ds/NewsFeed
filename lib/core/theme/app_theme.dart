@@ -23,9 +23,11 @@ class AppTheme {
         headlineMedium: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
         headlineSmall: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
         titleMedium: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: ColorsApp.mainTextColor),
+        bodySmall: TextStyle(fontSize: 14, fontWeight: FontWeight.normal, color: ColorsApp.mainTextColor),
         titleSmall: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: ColorsApp.thirdTextColor),
         bodyMedium: TextStyle(fontSize: 16, fontWeight: FontWeight.w500, color: ColorsApp.mainTextColor),
         labelMedium: TextStyle(fontSize: 14, fontWeight: FontWeight.w500, color: ColorsApp.mainTextColor),
+        labelSmall: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: ColorsApp.mainTextColorNavBar),
       ),
     ),
     elevatedButtonTheme: ElevatedButtonThemeData(
