@@ -7,13 +7,13 @@ import 'package:timeago/timeago.dart' as timeago;
 import '../../../core/theme/app_theme.dart';
 import '../../../core/config/router.dart';
 
-class CardNewsWidget extends StatelessWidget {
+class CardMainNewsWidget extends StatelessWidget {
   final String urlImage;
   final String? isSource;
   final String newsTitle;
   final String? description;
   final DateTime time;
-  const CardNewsWidget({
+  const CardMainNewsWidget({
     super.key, 
     required this.urlImage, 
     this.isSource,

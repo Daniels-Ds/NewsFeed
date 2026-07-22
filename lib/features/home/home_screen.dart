@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:intl/intl.dart';
 import 'package:otto_news/core/theme/app_theme.dart';
 import 'package:otto_news/core/theme/constant/colors.dart';
 import 'package:otto_news/data/models/article_model.dart';
 import 'package:otto_news/features/home/news_provider.dart';
-import 'package:otto_news/features/home/widgets/card_main_news_widget.dart';
+import 'package:otto_news/features/home/widgets/card_main_news_widgets.dart';
 import 'package:provider/provider.dart';
 import '../../core/global_widgets/app_bar_title_widget.dart';
 import 'widgets/card_news_widget.dart';
@@ -13,15 +14,19 @@ class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
+  State<HomeScreen> createState() => HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class HomeScreenState extends State<HomeScreen> {
+
+
   @override
   void initState() {
       context.read<NewsProvider>().loadNews();
     super.initState();
   }
+
+  void addToReadLater(BuildContext context) {}
 
   final List<String> category = [
     "Все новости",
@@ -40,7 +45,6 @@ class _HomeScreenState extends State<HomeScreen> {
   
   @override
   Widget build(BuildContext context) {
-  
   final model = context.watch<NewsProvider>();
   final listNews = model.listNews;
   var firstNew = model.listNews.where((el) => el.imageUrl.isNotEmpty && el.description.isNotEmpty);
@@ -62,7 +66,7 @@ class _HomeScreenState extends State<HomeScreen> {
               SliverPadding(padding: EdgeInsets.only(top: 10)),
               SliverToBoxAdapter(
                 child: 
-                model.listNews.isNotEmpty ? CardNewsWidget(newsTitle: firstNew.first.title, urlImage: firstNew.first.imageUrl, time: firstNew.first.publishedAt, isSource: firstNew.first.isSource, description: firstNew.first.description,) : SizedBox(),
+                model.listNews.isNotEmpty ? CardMainNewsWidget(newsTitle: firstNew.first.title, urlImage: firstNew.first.imageUrl, time: firstNew.first.publishedAt, isSource: firstNew.first.isSource, description: firstNew.first.description,) : SizedBox(),
               ),
               SliverToBoxAdapter(child: 
                 Padding(
@@ -93,7 +97,25 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
                 SliverList.builder(
                   itemBuilder: (BuildContext context, int index) {
-                    return model.listNews.isNotEmpty ? CardMainNewsWidget(urlImage: listNews[index].imageUrl, discription: listNews[index].description, newsTitle: listNews[index].title, time: listNews[index].publishedAt, author: listNews[index].isSource) : SizedBox();
+                    return model.listNews.isNotEmpty ? Slidable(
+                      endActionPane: ActionPane(
+                        motion: ScrollMotion(),
+                        children: [
+                          SlidableAction(
+                            onPressed: addToReadLater,
+                            backgroundColor: Colors.white,
+                            foregroundColor: ColorsApp.tabColorNavBar,
+                            icon: Icons.remove_red_eye,
+                            label: 'Read later',
+                          )
+                        ]
+                      ),
+                      child: CardNewsWidget(
+                        urlImage: listNews[index].imageUrl, 
+                        discription: listNews[index].description, 
+                        newsTitle: listNews[index].title, 
+                        time: listNews[index].publishedAt, 
+                        author: listNews[index].isSource)) : SizedBox();
                   },
                   itemCount: model.listNews.length),
               SliverPadding(padding: EdgeInsets.only(top: 80)),
@@ -154,7 +176,7 @@ class _AppBarWidget extends StatelessWidget {
           const SizedBox(height: 8),
           _TextDateWidget(),
           const SizedBox(height: 10),
-          AppBarTitleWidget(title: 'Главные новости',),
+          AppBarTitleWidget(title: 'Свежие новости'),
         ],
       ),
     );

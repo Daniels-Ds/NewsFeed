@@ -14,10 +14,14 @@ class CardImageWidget extends StatelessWidget {
       clipBehavior: Clip.hardEdge,
       height: 100,
       decoration: BoxStyles.imageInCardDecoration, 
-      child: Image.network(
-        urlImage?.isNotEmpty == true ? urlImage! : '',
+      child: 
+      urlImage?.isNotEmpty == true ? 
+      Image.network(
+        '$urlImage',
         fit: BoxFit.cover,
         width: double.infinity,
-        ));
+        ) :
+      Image.asset('assets/images/emptyImage.png')
+      );
   }
 }

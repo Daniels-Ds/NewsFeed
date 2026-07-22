@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:otto_news/core/theme/constant/colors.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
 import '../../../core/theme/app_theme.dart';
@@ -7,13 +8,13 @@ import '../../../core/theme/constant/styles.dart';
 import '../../../core/config/router.dart';
 import '../../../core/global_widgets/image_widget.dart';
 
-class CardMainNewsWidget extends StatelessWidget {
+class CardNewsWidget extends StatelessWidget {
   final String urlImage;
   final String? discription;
   final String newsTitle;
   final DateTime time;
   final String? author;
-  const CardMainNewsWidget({
+  const CardNewsWidget({
     super.key, 
     required this.urlImage, 
     required this.discription, 
@@ -28,22 +29,18 @@ class CardMainNewsWidget extends StatelessWidget {
       onTap: () => context.push(AppRoutes.detailsPath),
       child: Container(
         width: double.infinity,
-        height: 100,
+        height: 120,
         margin: EdgeInsets.symmetric(horizontal: 10),
         clipBehavior: Clip.hardEdge,
         decoration: BoxStyles.cardDecoration,
         child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            urlImage.isNotEmpty ?
-            Flexible(
-              flex: 1,
-              child: Padding(
-                padding: const EdgeInsets.symmetric(vertical: 15),
-                child: CardImageWidget(urlImage: urlImage,),
-              )) : SizedBox(),
-            Flexible(
-              flex: 2,
+            SizedBox(
+              width: urlImage.isNotEmpty == true ? 150 : 80,
+              child: CardImageWidget(urlImage: urlImage,),
+            ),
+            Expanded(
               child: _CardInfoWidget(
                 discription: discription, 
                 newsTitle: newsTitle, 
@@ -79,6 +76,14 @@ class _CardInfoWidget extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
+          Container(
+            padding: EdgeInsets.symmetric(horizontal: 10, vertical: 2),
+            decoration: BoxDecoration(
+              color: ColorsApp.categoryCardColor,
+              borderRadius: BorderRadius.circular(5)
+            ),
+            child: Text('Категория', style: TextStyle(color: ColorsApp.tabColorNavBar, fontSize: 12)),
+          ),
           SizedBox(height: 5),
           Text(newsTitle, maxLines: 2, overflow: TextOverflow.ellipsis , style: AppTheme.themeData.textTheme.headlineSmall,),
           SizedBox(height: 5),
@@ -88,10 +93,9 @@ class _CardInfoWidget extends StatelessWidget {
               SizedBox(width: 5),
               Text('•', style: AppTheme.themeData.textTheme.titleSmall,),
               SizedBox(width: 5),
-              Text(timeago.format(time, locale: 'ru'), style: AppTheme.themeData.textTheme.titleSmall,)
+              Expanded(child: Text(timeago.format(time, locale: 'ru'), style: AppTheme.themeData.textTheme.titleSmall, maxLines: 1,))
             ],
           )
-          
         ],
       ),
     );
